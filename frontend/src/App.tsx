@@ -1,19 +1,21 @@
 // import { useState } from "react"
-// import { Task } from "./types/Task"
-import {Routes, Route} from 'react-router-dom'
+import { Task } from "./types/Task"
+import { Routes, Route } from 'react-router-dom'
 // import Form from "./pages/Form"
 // import ListTasks from "./pages/ListTask";
 import RegisterPage from "./auth/RegisterPage";
 import Home from "./pages/home/Home";
 import LoginPage from "./auth/LoginPage";
-import ListTasks from './pages/ListTask';
+import Form from './pages/Form';
+import { useState } from "react";
+import PrivateRoutes from "./private/PrivateRoutes";
 function App() {
-  // const [task, setTask] = useState<Task>({
-  //   title : '',
-  //   content : '',
-   
-    
-  // })
+  const [task, setTask] = useState<Task>({
+    title: '',
+    description: '',
+
+
+  })
 
   return (
     <>
@@ -26,10 +28,13 @@ function App() {
       </div> */}
 
       <Routes>
-        <Route path="/" element={<Home/>}/>
-        <Route path="/login" element={<LoginPage/>}/>
-        <Route path="/register" element={<RegisterPage/>}/>
-        <Route path='/tasks' element={<ListTasks/>}/>
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
+        <Route element={<PrivateRoutes />}>
+          <Route path="/" element={<Home />} />
+          <Route path='/form' element={<Form setTask={setTask} task={task} />} />
+        </Route>
+
       </Routes>
     </>
   )

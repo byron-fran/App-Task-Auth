@@ -1,6 +1,6 @@
 import { createContext, useState, useEffect, ReactNode, SetStateAction, Dispatch } from 'react';
 import Cookie from 'js-cookie';
-import { registerUser, loginUser, tokenVerify } from '../api/auth';
+import { registerUser, loginUser, tokenVerify,logOutUser } from '../api/auth';
 import { User } from '../interfaces/User';
 import { AxiosError } from 'axios';
 
@@ -70,14 +70,25 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
     try {
       const res = await loginUser(user);
       setUser(res.data);
-      setIsAuthenticathed(true)
+      setIsAuthenticathed(true);
+      setErrorLogin('')
     }
 
-    catch (error) {
-      console.log(error)
+    catch (error : unknown) {
+      if(error instanceof AxiosError){
+        console.log(error.response?.data?.message);
+        setErrorLogin(error.response?.data?.message)
+        setIsAuthenticathed(false)
+        setUser({
+          name: '',
+          email: '',
+          password: '',
+          id: '',
+        })
+      }
     }
   }
-  const LogOut = () => {
+  const LogOut =  async () => {
     setUser({
       name: '',
       email: '',
@@ -85,14 +96,18 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
       id: '',
       isAuthenticathed: false
     })
+    await logOutUser()
     setIsAuthenticathed(false)
     Cookie.remove('token')
+
+   
+    
   };
 
   useEffect(() => {
     const checkToken = async () => {
       const cookie = Cookie.get();
-
+   
       if (!cookie) {
         setIsAuthenticathed(false);
         setUser({
@@ -126,7 +141,14 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
       }
       catch (error: unknown) {
         if (error instanceof AxiosError) {
-          console.log(error)
+          setIsAuthenticathed(false)
+          setUser({
+            name : '',
+            id : '',
+            password  : '',
+            email : ''
+          })
+          console.log(error.response)
         }
       }
     };

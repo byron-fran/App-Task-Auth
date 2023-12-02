@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { useAuth } from '../hooks/useAuth';
@@ -6,14 +7,22 @@ import { User } from '../interfaces/User';
 const LoginPage = (): JSX.Element => {
 
   const { handleSubmit, register, formState: { errors }, reset } = useForm<User>();
-  const {Login} = useAuth()
+  const {Login, errorLogin, isAuthenticathed} = useAuth()
   const Navigate = useNavigate()
   const onSubmit = handleSubmit((data) => {
     Login(data);
-    
     //Clean form
     reset()
-  })
+  });
+  console.log(isAuthenticathed)
+  useEffect(() => {
+    if(isAuthenticathed){
+      Navigate('/');
+      
+      return
+    }
+  }, [isAuthenticathed])
+
   return (
     <div className='form_container'>
       <div className='form_div'>
@@ -21,6 +30,7 @@ const LoginPage = (): JSX.Element => {
           {/* end field form */}
           <div className='form_field'>
             <label htmlFor="email">Email</label>
+            {errorLogin.length > 0 && (<p className='form_error'>{errorLogin}</p>)}
             {errors.email?.type === 'required' && (<p className='form_error'>Email is required</p>)}
             {errors.email?.type === 'minLength' && (<p className='form_error'>The Email must be at least 2 characters </p>)}
             {errors.email?.type === 'maxLength' && (<p className='form_error'>The email must have a maximum of 20 characters</p>)}
