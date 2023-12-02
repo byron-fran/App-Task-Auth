@@ -25,7 +25,7 @@ app.use(cors({
 app.use('/api',router);
 app.use('/api',routeTasks);
 
-sequelize.sync({force : false}).then(() => {
+sequelize.sync({force : true}).then(() => {
     console.log('Database synced');
     app.listen(process.env.PORT, () => {
     console.log(`Server is running on port ${process.env.PORT}`)

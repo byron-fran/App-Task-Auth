@@ -9,6 +9,9 @@ const NavBar = () => {
             <NavLink to='/login' onClick={LogOut}>
                 Logout
             </NavLink>
+            <NavLink to='/form'>
+                Add new task
+            </NavLink>
         </nav>
     </div>
   )

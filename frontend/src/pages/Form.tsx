@@ -1,6 +1,6 @@
 import React, { SetStateAction} from 'react';
 import {Task} from '../types/Task';
-import { useAuth } from '../hooks/useAuth';
+import { useForm } from 'react-hook-form';
 // import {generarId} from '../helpers';
 // import {useDispatch, useSelector} from 'react-redux';
 
@@ -10,49 +10,29 @@ type formProps = {
 }
 
 const Form : React.FC<formProps> = ({setTask, task}) => {
-  const {user}= useAuth()
-  // const dispatch = useDispatch();
-  // const state = useSelector((state : RootState) => state.tasks)
+  const {register, handleSubmit,reset, setValue, formState : {errors}} = useForm<Task>()
 
-  // const handleSubmit = (e : React.FormEvent<HTMLFormElement>) => {
-  //     e.preventDefault();
-  //     const taskFound = state.tasks.find((_task : Task) => _task.id === task.id);
-  //     if(taskFound){
-  //       dispatch(updateTask(task))
-  //     }
-  //     else{
-  //       dispatch(addTask({...task, id : generarId()}));
-       
-  //     }
-  
-  //     setTask({
-  //       title : '',
-  //       content : '',
-  //       id : ''
-  //     })
-     
-  // }
-  if(user === undefined)return null;
-  console.log(user)
-  return (
+
+  const onSubmit = handleSubmit((data) => {
+    console.log(data);
+
+    //clean form
+    reset()
+  })
+   return (
     <div className='container'>
       <div>
-        <form  className='formulario'>
+        <form onSubmit={onSubmit} className='formulario'>
           <div>
             <label htmlFor='title'>title</label>
-            <input type='text' name='title' id='title' placeholder='write a title'
-              value={task.title}
-              onChange={(e) => {
-                setTask({...task, title : e.target.value})}
-              }/>
+            <input type='text' id='title' placeholder='write a title'
+              {...register('title')}
+              />
           </div>
           <div>
             <label htmlFor='content'>Content</label>
-            <textarea name='content' id='content' placeholder='Write a content'
-              value={task.description}
-              onChange={(e) => {
-                setTask({...task, description : e.target.value})
-              }}
+            <textarea id='content' placeholder='Write a content'
+              {...register('description')}
             />
           </div>
             <button type='submit'>Add</button>

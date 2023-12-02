@@ -7,18 +7,19 @@ import { User } from '../interfaces/User';
 const LoginPage = (): JSX.Element => {
 
   const { handleSubmit, register, formState: { errors }, reset } = useForm<User>();
-  const {Login, errorLogin, isAuthenticathed} = useAuth()
-  const Navigate = useNavigate()
+  const { Login, errorLogin, isAuthenticathed } = useAuth();
+  const Navigate = useNavigate();
+
   const onSubmit = handleSubmit((data) => {
     Login(data);
     //Clean form
     reset()
   });
-  console.log(isAuthenticathed)
+
   useEffect(() => {
-    if(isAuthenticathed){
+    if (isAuthenticathed) {
       Navigate('/');
-      
+
       return
     }
   }, [isAuthenticathed])

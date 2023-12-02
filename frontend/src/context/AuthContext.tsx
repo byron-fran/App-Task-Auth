@@ -154,7 +154,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
     };
     checkToken();
   }, []);
-  console.log(user, 'desde afuera')
+
   return (
     <AuthContext.Provider value={{
       user,
