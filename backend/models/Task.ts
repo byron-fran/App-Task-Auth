@@ -16,11 +16,10 @@ class Task extends Model<Task> {
     title! : string
 
     @Column(DataType.STRING)
-    content! : string
+    description! : string
 
     @Column(DataType.INTEGER)
     userId! : number
 }
-;
 
 export default Task

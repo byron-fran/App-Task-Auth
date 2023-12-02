@@ -7,7 +7,7 @@
    
     .form_div {
         margin-bottom: 10rem;
-        width: 60%;
+        width: 80%;
         margin: 0 auto;
         background: $blanco;
         border-radius: 10px;
@@ -15,8 +15,11 @@
         @include tablet{
             width: 50%;
         }
-        @include large-desktop{
+        @include desktop{
             width: 40%;
+        }
+        @include large-desktop{
+            width: 30%;
         }
     }
     .form_field {
@@ -24,8 +27,7 @@
         label {
             width: 100%;
             text-align: center;
-          
-            // display: block;
+            font-weight: 700;
         }
         input {
             margin: 0.5rem auto 0 auto;
@@ -34,6 +36,10 @@
             box-sizing: border-box;
             padding: 0.7rem 0.5rem;
             border-radius: 4px;
+        }
+        .form_error {
+            color : $rojo;
+            font-weight: 600;
         }
     }
     

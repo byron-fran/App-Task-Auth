@@ -1,7 +1,7 @@
 export interface User {
-    id?: number;
-    name: string;
+    id?: number | string;
+    name?: string;
     email: string;
     password: string;
-    password_repeat?: string;
+    isAuthenticathed? : boolean
 }

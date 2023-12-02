@@ -9,7 +9,7 @@ dotenv.config();
 
 
 const register = async (req = request, res = response) => {
-    const { password, email,password_repeat  } : UserInterface = req.body;
+    const { password, email, } : UserInterface = req.body;
     try {
 
         //check if user already exists
@@ -18,11 +18,6 @@ const register = async (req = request, res = response) => {
             res.clearCookie('token', {secure : true,})
             return res.status(400).json({ message: 'User already exists' })
         };
-        //hsah password
-    
-
-         // Check if passwords match
-        if(password !== password_repeat) return res.status(400).json({ message: 'Passwords do not match', errorCode: 'PASSWORDS_DO_NOT_MATCH' });
         //hash password
         const passwordHash = await bcryptjs.hash(password, 10);
         // const passwordRepeaitHash = await bcryptjs.hash(password_repeat, 10);
@@ -67,7 +62,7 @@ const login = async (req =request, res = response) => {
         const token = await generateToken(userFound.id);
         // return a cookie
         res.cookie('token', token, {httpOnly : true, maxAge : 24 * 60 * 60 * 1000, secure : true,}, );
-        return res.status(200).json({message : 'User logged in successfully', userFound});
+        return res.status(200).json(userFound);
         
     } catch (error: unknown) {
         if (error instanceof Error) {
