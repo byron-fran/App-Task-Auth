@@ -96,12 +96,12 @@ const updateTask = async (req = request, res = response) => {
     const {userId} : TaskInterface = req.body;
 
     const {id} = req.params;
-    const {title, content} = req.body;
+    const {title, description} = req.body;
     try {
         const task = await Task.findByPk(id);
         if(!task) return res.status(400).json({message : 'Task not found'});
         task.title = title;
-        task.content = content;
+        task.description = description;
         await task.save();
         return res.status(200).json({message : 'Task updated successfully'});
     } catch (error: unknown) {

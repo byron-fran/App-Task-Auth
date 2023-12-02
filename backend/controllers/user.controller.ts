@@ -51,6 +51,7 @@ const register = async (req = request, res = response) => {
 
 const login = async (req =request, res = response) => {
     const {email, password} : UserInterface= req.body;
+  
     try {
         //check if user exists
         const userFound = await User.findOne({where : {email}, });
@@ -96,6 +97,7 @@ const logout = async (req = request, res = response) => {
 
 const verifyToken = async (req = request, res = response) => {
     const {token} = req.cookies;
+   
     try {
         //check if token exists
         if(!token) return res.status(404).json({message : 'No token provided'});
