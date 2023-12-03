@@ -20,7 +20,7 @@ const Form: React.FC<formProps> = () => {
 
 
   const onSubmit = handleSubmit((data) => {
-    const idFound = tasks.find((task : Task) => task.id == id);
+    const idFound = tasks.find((task: Task) => task.id == id);
 
     if (idFound) {
       updateTaskById(idFound.id, data)
@@ -42,7 +42,7 @@ const Form: React.FC<formProps> = () => {
       try {
 
         const res = await getTaskByIdRequest(id);
-        console.log(res.data.task)
+
         setValue('title', res.data.task?.title);
         setValue('description', res.data?.task?.description)
       }
