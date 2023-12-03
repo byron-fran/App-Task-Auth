@@ -1,0 +1,39 @@
+.nav_container{
+    width: 100%;
+    position: relative;
+}
+.nav {
+    width: 100%;
+    margin: -4rem auto 1rem auto;
+    position: fixed;
+    background: $azul;
+    display: block;
+    left: 0;
+    right: 0;
+    padding: 1rem 0;
+    display: flex;
+    justify-content: space-around;
+    @include tablet {
+        width: 80%;
+        
+    }
+    a {
+        color: $blanco;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 0.7rem;
+        @include tablet {
+            font-size: 1.1rem;
+        }
+    }
+    h2 {
+        margin: 0;
+        padding: 0;
+        color: $blanco;
+        font-size: 0.7rem;
+        @include tablet {
+            font-size: 1rem;
+        }
+        
+    }
+}

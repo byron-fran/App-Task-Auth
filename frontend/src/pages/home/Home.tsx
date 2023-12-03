@@ -9,8 +9,7 @@ const Home = () => {
     getAllTasks()
   }, [])
   return (
-    <div>Home
-
+    <div>
       <NavBar/>
       <ListTask/>
     </div>

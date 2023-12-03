@@ -1,0 +1,66 @@
+.task_title{
+    margin: 1rem auto;
+    padding: 1rem;
+    text-align: center;
+   
+    
+}
+.task_container{
+    width: 95%;
+    margin: 4rem auto;
+
+    
+    @include tablet {
+        width: 80%;
+    }
+}
+
+.task_grid {
+    display: grid;
+    gap: 1rem;
+    width: 100%;
+    @include tablet { 
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    @include desktop {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    @include  large-desktop {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+.card {
+    background: #fff;
+    box-shadow: 9px -1px 12px 1px $blanco;
+    border: 0.4px $blanco solid;
+    padding: 0.5rem 1rem;
+   
+    .card_btns{
+        display: flex;
+        column-gap: 1rem;
+        margin-bottom: 1rem;
+        button {
+            border: none;
+            padding: 0.3rem 1rem;
+            color: $blanco;
+            font-weight: 600;
+            border-radius: 5px;
+
+        }
+        :nth-child(1){
+            background: $rojo;
+        }
+        :nth-child(2){
+            background: $indigo;
+        }
+        :nth-child(1):hover {
+            background: darken($rojo, 10%);
+            cursor: pointer;
+        }
+        :nth-child(2):hover {
+            background: darken($indigo, 10%);
+            cursor: pointer;
+        }
+    }
+}

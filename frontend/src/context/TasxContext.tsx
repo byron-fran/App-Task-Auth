@@ -1,6 +1,5 @@
 import 
 {
-    useEffect,
     useState, 
     SetStateAction,
     Dispatch,
@@ -13,7 +12,6 @@ import { Task } from '../types/Task';
 import { 
     createTaskRequest, 
     deleteTaskByIdRequest, 
-    getTaskByIdRequest, 
     getTasksRequest,
     updateTaskByIdRequest
 } 
@@ -56,11 +54,8 @@ export const TaskProvider : FC<TaskProviderProps>  = (({children}) => {
     const [task, setTask] = useState<Task>(defaultValueContext.task);
     const [tasks, setTasks] = useState<Task[]>(defaultValueContext.tasks)
 
-    useEffect(() => {
-
-    }, []);
-
     //CRUD TASKS
+    //function to create a new task
     const createTask = async (task : Task)=> {
         try{    
             await createTaskRequest(task);
@@ -71,6 +66,7 @@ export const TaskProvider : FC<TaskProviderProps>  = (({children}) => {
             }
         }
     };
+
     const getAllTasks = async () => {
         try{
             const res = await getTasksRequest();
@@ -87,15 +83,13 @@ export const TaskProvider : FC<TaskProviderProps>  = (({children}) => {
             const tasksFilter = tasks.filter(task => task.id !== id);
             await deleteTaskByIdRequest(id);
             setTasks(tasksFilter)
-            
         }
         catch(error : unknown){
             if(error instanceof AxiosError){
                 console.log(error.response);
                 return
             }
-
-            throw new Error('Something wrog')
+            throw new Error('Something wrong')
         }
     };
     const updateTaskById = async (id : string | number, data : Task) => {
@@ -106,7 +100,7 @@ export const TaskProvider : FC<TaskProviderProps>  = (({children}) => {
         }
         catch(error : unknown){
             if(error instanceof AxiosError){
-                console.log(error.response);
+               return(error.response);
             }
         }
     }

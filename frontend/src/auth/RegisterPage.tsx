@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { useAuth } from '../hooks/useAuth';
@@ -9,8 +9,16 @@ const RegisterPage: React.FC = () => {
 
   const Navigate = useNavigate()
   const { handleSubmit, register, formState: { errors }, reset } = useForm<User>();
-  const {SignUp} = useAuth() 
+  const {SignUp, isAuthenticathed} = useAuth();
 
+  useEffect(() => {
+    if (isAuthenticathed) {
+      Navigate('/');
+
+      return
+    }
+  }, [isAuthenticathed]);
+  
   const onSubmit =handleSubmit((data) => {
     SignUp(data)
     //clean form
